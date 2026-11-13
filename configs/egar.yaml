@@ -1,0 +1,13 @@
+# EGAR configuration (symbols as in the paper). Tune theta_h, eta, epsilon,
+# rho0 and delta_t on a validation split before testing.
+theta_l: 0.5
+theta_h: 0.9
+eta: 0.3
+epsilon: 0.3
+rho0: 0.1
+R: 2
+m: 3
+delta_t: 5.0
+isolation_forest_contamination: 0.05
+llm_model: qwen2.5:3b
+allowlist: [block_source_ip, rate_limit_source, drop_port, isolate_host]

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "recon-1",
+    "category": "recon",
+    "title": "Network reconnaissance",
+    "text": "Reconnaissance probes hosts with ICMP echo, ARP or light TCP connects to map live systems before an attack. Indicators: one source contacting many hosts with few packets per flow. Impact: low directly, but precedes exploitation. Mitigation: rate_limit_source for low confidence, block_source_ip if probing continues."
+  },
+  {
+    "id": "scan-1",
+    "category": "port_scan",
+    "title": "TCP port scanning",
+    "text": "Port scans such as Nmap SYN scans send SYN packets to many destination ports, often without completing the handshake (SYN without ACK, RST replies). Indicators: high number of unique destination ports from one source in a short window. Impact: reveals open services. Mitigation: block_source_ip; rate_limit_source if the source is shared."
+  },
+  {
+    "id": "ssh-1",
+    "category": "ssh_bruteforce",
+    "title": "SSH brute-force attack",
+    "text": "SSH brute force repeatedly attempts logins on port 22 with tools such as Hydra, creating many short TCP connections to the same port. Indicators: high connection rate to port 22 from one source, short flows with similar sizes. Impact: account compromise. Mitigation: drop_port for port 22 from the source, or block_source_ip; enforce key-based authentication."
+  },
+  {
+    "id": "ddos-1",
+    "category": "ddos",
+    "title": "Denial-of-service flooding",
+    "text": "Denial-of-service floods (SYN flood, UDP flood, HTTP flood) send very high packet rates to exhaust bandwidth or connection tables. Indicators: very high packets per second and bytes per second, many half-open connections. Impact: service unavailability. Mitigation: rate_limit_source first; block_source_ip or isolate_host if the flood persists."
+  },
+  {
+    "id": "unk-1",
+    "category": "unknown-anomalous",
+    "title": "Unknown anomalous traffic",
+    "text": "Traffic flagged only by the anomaly detector deviates from learned normal behavior but matches no known attack category. Assess packet rate, destination ports and handshake completeness. If rates are extreme or the pattern resembles flooding, treat as a possible denial-of-service and rate_limit_source; if benign-looking, choose no_action to avoid false alarms."
+  },
+  {
+    "id": "gen-1",
+    "category": "general",
+    "title": "Response escalation policy",
+    "text": "Escalate responses gradually: rate_limit_source, then drop_port, then block_source_ip, and isolate_host only for confirmed persistent attacks. Verify after each action that malicious traffic from the source has stopped before closing the incident."
+  }
+]
