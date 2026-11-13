@@ -1,0 +1,8 @@
+scapy>=2.5
+xgboost>=2.0
+scikit-learn>=1.4
+numpy>=1.26
+pandas>=2.1
+ollama>=0.3
+pyyaml>=6.0
+pytest>=8.0
